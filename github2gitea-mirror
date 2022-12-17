@@ -28,7 +28,7 @@ uid=$($CURL "${header_options[@]}" $GITEA_URL/api/v1/orgs/${gitea_organization} 
 fetch_starred_repos(){
     i=1
     # Github API just returns empty arrays instead of 404
-    while $CURL "https://api.github.com/users/${github_user}/starred?page=${i}&per_page=100" >${jsonoutput}/${i}.json \
+    while $CURL "https://api.github.com/orgs/${github_user}/repos?page=${i}&per_page=100" >${jsonoutput}/${i}.json \
 	    && (( $(jq <${jsonoutput}/${i}.json '.|length') > 0 )) ; do
 	(( i++ ))
     done
